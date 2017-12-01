@@ -17,7 +17,7 @@ namespace Lab3_Battery
         /// <summary>
         /// Объект, описывающий таймер
         /// </summary>
-        private readonly Timer _timer = new Timer();
+        private Timer _timer = new Timer();
 
         /// <inheritdoc />
         /// <summary>
@@ -30,10 +30,6 @@ namespace Lab3_Battery
             ConnectType.Text = _battery.GetConnectType();
             AvailablePower.Text = _battery.GetAvailPower();
             AvailableTime.Text = _battery.GetAvailTime();
-
-            _timer.Interval = 1000;
-            _timer.Tick += TimerEvent;
-            _timer.Start();
 
             TimeOfDisable.Enabled = _battery.ConnectType != Battery.OnlineStatus;
             OKButton.Enabled = _battery.ConnectType != Battery.OnlineStatus;
@@ -77,6 +73,12 @@ namespace Lab3_Battery
         /// <param name="e"></param>
         private void OKButton_Click(object sender, EventArgs e) => _battery.DisableScreen(Convert.ToInt32(TimeOfDisable.Text));
 
-      
+        private void BatteryForm_Load(object sender, EventArgs e)
+        {
+            _timer.Interval = 100;
+            _timer.Tick += TimerEvent;
+            _timer.Start();
+
+        }
     }
 }

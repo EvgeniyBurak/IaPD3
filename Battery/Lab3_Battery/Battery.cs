@@ -93,16 +93,11 @@ namespace Lab3_Battery
         public void DisableScreen(int newTime)
         {
             const string command = "/c powercfg /x -monitor-timeout-dc ";
-            Process cmd = new Process
-            {
-                StartInfo =
-                {
-                    WindowStyle = ProcessWindowStyle.Hidden,
-                    FileName = Progname,
-                    Arguments = command + newTime 
-                }
-            };
+            Process cmd = new Process();
 
+            cmd.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            cmd.StartInfo.FileName = Progname;
+            cmd.StartInfo.Arguments = command + newTime;
             cmd.Start();
         }
 
@@ -112,22 +107,17 @@ namespace Lab3_Battery
         private void GetTime()
         {
             const string command = "/c powercfg /q";
-            Process cmd = new Process
-            {
-                StartInfo =
-                {
-                    UseShellExecute = false,
-                    RedirectStandardOutput = true,
-                    WindowStyle = ProcessWindowStyle.Hidden,
-                    FileName = Progname,
-                    Arguments = command
-                }
-            };
+            Process cmd = new Process();
+            cmd.StartInfo.UseShellExecute = false;
+            cmd.StartInfo.RedirectStandardOutput = true;
+            cmd.StartInfo.FileName = Progname;
+            cmd.StartInfo.Arguments = command;
             cmd.Start();
 
-            var powerSchemes = cmd.StandardOutput.ReadToEnd();
+            var power = cmd.StandardOutput.ReadToEnd();
+                
             var someString = new Regex("VIDEOIDLE.*\\n.*\\n.*\\n.*\\n.*\\n.*\\n.*");
-            var videoidle = someString.Match(powerSchemes).Value;
+            var videoidle = someString.Match(power).Value;
             ScreenTime = Convert.ToInt32(videoidle.Substring(videoidle.Length - 11).TrimEnd(), 16) / 60;
         }
 

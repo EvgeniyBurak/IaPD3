@@ -193,6 +193,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "BatteryForm";
             this.Text = "Battery Information";
+            this.Load += new System.EventHandler(this.BatteryForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
