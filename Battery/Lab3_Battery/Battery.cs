@@ -83,7 +83,7 @@ namespace Lab3_Battery
         /// <returns></returns>
         public string GetAvailPower()
         {
-            AvailPower = Convert.ToString(SystemInformation.PowerStatus.BatteryLifePercent * 100, CultureInfo.CurrentCulture) + "%";
+            AvailPower = Convert.ToString(SystemInformation.PowerStatus.BatteryLifePercent * 100) + "%";
             return AvailPower;
         }
 
